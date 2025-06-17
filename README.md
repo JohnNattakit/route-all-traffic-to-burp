@@ -24,10 +24,6 @@ Step-by-step guide to route **all traffic from your phone (connected via Wi-Fi h
 ### 1. Enable IP forwarding
 
 ```
-bash
-
-
-CopyEdit
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
@@ -48,7 +44,7 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 Replace `<YOUR_KALI_IP>` with the IP of your `wlan0` (run `ip a | grep wlan0` to find it)
 
 ```
-bashCopyEdit# Clear old rules
+t# Clear old rules
 iptables -F
 iptables -t nat -F
 
@@ -90,10 +86,6 @@ Now, when your phone browses any site:
 You can save the config using:
 
 ```
-bash
-
-
-CopyEdit
 iptables-save > /etc/iptables/rules.v4
 ```
 
