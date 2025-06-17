@@ -90,3 +90,35 @@ iptables-save > /etc/iptables/rules.v4
 ```
 
 And restore using `iptables-restore`.
+
+
+
+
+
+
+
+
+### Single Bash script that will completely reset iptables to default (allow all, no NAT, no forwarding) and disable IP forwarding:
+```
+#!/bin/bash
+
+echo "[+] Flushing all iptables rules..."
+iptables -F
+iptables -t nat -F
+iptables -t mangle -F
+
+echo "[+] Deleting all user-defined chains..."
+iptables -X
+iptables -t nat -X
+iptables -t mangle -X
+
+echo "[+] Setting default policies to ACCEPT..."
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+echo "[+] Disabling IP forwarding..."
+echo 0 > /proc/sys/net/ipv4/ip_forward
+
+echo "[✓] iptables reset complete."
+```
